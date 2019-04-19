@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>My First APP Script</title>
+
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta charset="UTF-8">
+	</head>
+
+	<body>
+
+
+		<script
+		  src="./js/jquery-2.1.4.min.js">
+		</script>
+
+		<script
+		  src="./js/mathjs/math.js">
+		</script>
+
+
+
+
+
+
+<script type="text/javascript">
+	l1 = 2.75;
+	l2 = 4.67;
+
+	fk(30, 60);
+	function fk(t1, t2){
+			px = l2 * sc("c", t1) * sc("c", t2) + l1 * sc("c", t1);
+			py = l2 * sc("s", t1) * sc("c", t2) + l1 * sc("s", t1);
+			pz = l2 * sc("s", t2)
+
+			ik(px, py, pz)
+	}
+	//
+	function ik(x, y, z){
+		s2 = z/l2;
+		c2 = math.sqrt(1-(s2*s2))
+		t2 = math.atan2(s2, c2) / 2 / math.PI * 360
+
+		a = (l1 + l2 * c2)
+		c1 = x / a
+		s1 = y / a
+		t1 = math.atan2(s1, c1) / 2 / math.PI * 360
+
+		console.log(t1.toFixed(2), t2.toFixed(2))
+	}
+
+
+
+
+
+
+
+
+	function sc(ct, val){
+		if(ct == "c"){//cos
+			return math.cos( math.unit(val, 'deg') );
+		}else{
+			return math.sin( math.unit(val, 'deg') );
+		}
+	}
+
+</script>
+
+
+
+
+	</body>
+
+</html>
