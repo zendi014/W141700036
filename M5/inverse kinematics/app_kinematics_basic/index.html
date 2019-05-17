@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<title>My First Script</title>
+
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <meta charset="UTF-8">
+	</head>
+
+	<body>
+
+
+
+		<script
+		  src="./js/jquery-2.1.4.min.js">
+		</script>
+
+		<script
+		  src="./js/mathjs/math.js">
+		</script>
+
+
+
+
+
+		<!-- <script type="text/javascript">
+
+		</script> -->
+
+
+
+
+
+
+
+		<script type="text/javascript">
+
+			// 3 DOF SULUTIONS 3 DOF SULUTIONS 3 DOF SULUTIONS 3 DOF SULUTIONS
+			var l1, l2, l3;
+
+			fk_3d(60, 30, 60);
+
+			function fk_3d(q1, q2, q3){
+				l1 = 4.75;
+				l2 = 1.85;
+				l3 = 2.90;
+
+				c12 = trigono(q1, q2,  "c", "+");
+				s12 = trigono(q1, q2,  "s", "+");
+
+				x = ( l3 * c12 * sc("c", q3) ) + ( l2 * c12 ) + (l1 * sc("c", q1)) ;
+				y = ( l3 * s12 * sc("c", q3) ) + ( l2 * s12 ) + (l1 * sc("s", q1)) ;
+				z = -l3 * sc("s", q3);
+				console.log(x, y, z);
+
+				ik_3d(x, y, z);
+			}
+
+
+
+
+			function ik_3d(x, y, z){
+				// console.log(l1, l2, l3);
+
+				s3 = (-z)/l3;
+				c3 =  math.sqrt(math.abs(1 - (s3 * s3)));
+				t3 = math.atan2(s3, c3) / 2 / math.PI * 360; //console.log(t3);
+
+
+				mn = (l3*l3) + (l2*l2) + (2 * l2* l3 * c3);  //console.log(mn);
+				Q = ( (x*x) + (y*y) + (l1*l1) - mn ) / ( 2*l1 );
+				P = math.sqrt((x*x) + (y*y) - (Q*Q));
+
+				t1 = ( math.atan2(y, x)  +  math.atan2(P, Q) ) / 2 / math.PI * 360 ;
+	
+
+
+				k = (x * sc("c", t1)) + (y * sc("s", t1)) - l1; 
+				n = (y * sc("c", t1)) - (x * sc("s", t1)); 
+				l = l3 * sc("c", t3) + l2;
+
+
+				d = math.abs(1 / ( l*l ));
+				c2 = (k * l )/ d;
+				s2 = (n * l) / d;
+				t2 = math.atan2(s2, c2) / 2 / math.PI * 360;
+
+
+				if(t1 > 90){
+					t1 = 180 - t1;
+				}
+				if(t2 > 90){
+					t2 = 180 - t2;
+				}
+				if(t3 > 90){
+					t3 = 180 - t3;
+				}
+
+				console.log(t1, t2, t3);
+			}
+			// 3 DOF SULUTIONS 3 DOF SULUTIONS 3 DOF SULUTIONS 3 DOF SULUTIONS
+
+
+
+
+
+
+
+			// 2 DOF SULUTIONS 2 DOF SULUTIONS 2 DOF SULUTIONS 2 DOF SULUTIONS
+
+			fk_2d(30, 45);//call here
+
+			function fk_2d(q1, q2){//2 params theta 1, theta 2
+				l1 = 2.7473;
+				l2 = 4.6666;
+
+				x = l2 * sc("c", q1) * sc("c", q2) + l1 * sc("c", q1);
+				y = l2 * sc("s", q1) * sc("c", q2) + l1 * sc("s", q1);
+				z = l2 * sc("s", q2);
+				console.log(x, y, z);
+
+				ik_2d(x, y, z);
+			}
+
+			function ik_2d(x, y, z){
+				s2 = z/l2;
+				c2 = math.sqrt(math.abs(1 - (s2 * s2)));
+				t2 = math.atan2(s2, c2) / 2 / math.PI * 360 ;
+
+				a = (l1 + (l2 * sc("s", t2)) );
+				c1 = x / a;
+				s1 = y / a;
+				t1 = math.atan2(s1, c1) / 2 / math.PI * 360 ;
+
+				console.log(t1 , t2);
+			}
+
+			// 2 DOF SULUTIONS 2 DOF SULUTIONS 2 DOF SULUTIONS 2 DOF SULUTIONS 
+
+
+
+
+
+			//TRIGONOMETRY SIMPLIFIED TRIGONOMETRY SIMPLIFIED TRIGONOMETRY SIMPLIFIED
+			function sc(ct, val){
+				if(ct == "c"){
+					return math.cos(math.unit(val, 'deg'));
+				}else{
+					return math.sin(math.unit(val, 'deg'));
+				}
+			}
+
+
+
+
+			function trigono(a, b, t, s){
+				if(t == "c"){
+					if(s == "+"){ //math.cos(math.unit(c1, 'deg'))
+						return math.cos(math.unit(a, 'deg')) * math.cos(math.unit(b, 'deg')) - math.sin(math.unit(a, 'deg')) * math.sin(math.unit(b, 'deg'));
+					}else{
+						return math.cos(math.unit(a, 'deg')) * math.cos(math.unit(b, 'deg')) + math.sin(math.unit(a, 'deg')) * math.sin(math.unit(b, 'deg'));
+					}
+				}else{
+					if(s == "-"){
+						return math.sin(math.unit(a, 'deg')) * math.cos(math.unit(b, 'deg')) - math.cos(math.unit(a, 'deg')) * math.sin(math.unit(b, 'deg'));
+					}else{
+						return math.sin(math.unit(a, 'deg')) * math.cos(math.unit(b, 'deg')) + math.cos(math.unit(a, 'deg')) * math.sin(math.unit(b, 'deg'));
+					}
+				}
+			}
+			//TRIGONOMETRY SIMPLIFIED TRIGONOMETRY SIMPLIFIED TRIGONOMETRY SIMPLIFIED
+			
+		</script>
+
+
+
+	</body>
+
+</html>
+
+
+

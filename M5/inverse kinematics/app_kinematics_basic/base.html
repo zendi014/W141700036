@@ -36,25 +36,21 @@
 
 			ik(px, py, pz)
 	}
-	//
+
+
+
 	function ik(x, y, z){
-		s2 = z/l2;
-		c2 = math.sqrt(1-(s2*s2))
-		t2 = math.atan2(s2, c2) / 2 / math.PI * 360
+			s2 = z/l2;
+			c2 = math.sqrt(1-(s2*s2))
+			t2 = math.atan2(s2, c2) / 2 / math.PI * 360
 
-		a = (l1 + l2 * c2)
-		c1 = x / a
-		s1 = y / a
-		t1 = math.atan2(s1, c1) / 2 / math.PI * 360
+			a = (l1 + l2 * c2)
+			c1 = x / a
+			s1 = y / a
+			t1 = math.atan2(s1, c1) / 2 / math.PI * 360
 
-		console.log(t1.toFixed(2), t2.toFixed(2))
+			console.log(t1.toFixed(2), t2.toFixed(2))
 	}
-
-
-
-
-
-
 
 
 	function sc(ct, val){
@@ -64,6 +60,10 @@
 			return math.sin( math.unit(val, 'deg') );
 		}
 	}
+
+
+
+
 
 </script>
 
