@@ -5,6 +5,7 @@ var q1 = 0, q2 = 0,
     l1 = 2.75,
     l2 = 4.67,
     lr = 0.1,
+    pi = 22/7,
     data_set_length = 100,
     epoch = 500;
 
@@ -53,6 +54,8 @@ function fk(t1, t2) {
 }
 
 function training_data(){
+    console.log(global_data_set);
+
     net.train(global_data_set, {
         iteration: epoch,
         learningRate: lr,
@@ -60,10 +63,11 @@ function training_data(){
         errorTreshold: 0.005
     });
     let output = net.run({
-        px: px,
-        py: py,
-        pz: pz
-    })
+        px: 0.1370217491666434,
+        py: 0.24031415081978486,
+        pz: 0.4669971446480844
+    });
+
     Q1 = math.unit(math.asin(output.t1), "rad");
     Q2 = math.unit(math.asin(output.t2), "rad");
 
@@ -71,10 +75,11 @@ function training_data(){
 }
 
 function update_pos(Q1, Q2){
+    console.log(Q1, Q2);
     data_gltf.scene.traverse(function (c) {
       if(c instanceof THREE.SkinnedMesh){
-        c.skeleton.bones[0].rotation.y = Q1 / 100
-        c.skeleton.bones[1].rotation.z = Q2 / 100
+        c.skeleton.bones[0].rotation.y = Q1 / 100;
+        c.skeleton.bones[1].rotation.z = Q2 / 100;
       }
     })
 }
