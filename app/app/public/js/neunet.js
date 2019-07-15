@@ -19,14 +19,10 @@ NeuNet.prototype = (function(){
       set_data();
       console.log(net);
     }
-
     return {
       init: onInit
     }
 })();
-
-
-
 
 
 function set_data(){
@@ -37,8 +33,6 @@ function set_data(){
       }
   }
 }
-
-
 
 function fk(t1, t2){
     px = l2 * sc("c", t1) * sc("c", t2) + l1 * sc("c", t1);
@@ -54,9 +48,6 @@ function fk(t1, t2){
     }
     gdt.push(dt);
 }
-
-
-
 
 
 function get_output() {
@@ -81,9 +72,6 @@ function get_output() {
     set_pos(o1.value / 2 / pi * 360, o2.value / 2 / pi * 360);
 }
 
-
-
-
 function set_pos(q1, q2){
   console.log(q1, q2);
   main_gltf.scene.traverse(function(c){
@@ -93,8 +81,6 @@ function set_pos(q1, q2){
       }
   })
 }
-
-
 
 
 function sc(ct, val){
